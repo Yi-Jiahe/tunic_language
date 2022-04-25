@@ -15,8 +15,8 @@ def hello_world():
 
 @app.route('/to-runes', methods=['POST'])
 def translate_to_runes():
-    print(request)
-    str_input = request.form["input"]
+    req_data = json.loads(request.data)
+    str_input = req_data["input"]
     sentence_as_phonemes = to_phoneme(str_input)
     output = [to_runes(x) if isinstance(x, list) else x for x in sentence_as_phonemes]
     print(output)
