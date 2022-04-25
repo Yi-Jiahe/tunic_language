@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import Rune from './Rune';
+import './TextArea.css';
 
 export default function TextArea() {
     const [inputText, setInputText] = useState("");
+    const [tokens, setTokens] = useState([]);
 
     const onSubmit = (event: React.FormEvent) => {
         event.preventDefault();
@@ -13,7 +15,11 @@ export default function TextArea() {
                 'input': inputText
             })
         }).then((response) => {
-            console.log(response);
+            return response.json();
+        }).then((data) => {
+            console.log("Response body", data)
+            console.log("Parsed body", JSON.parse(data["body"]));
+            setTokens(JSON.parse(data["body"]));
         });
 
         console.log("Submitted", inputText);
@@ -22,13 +28,26 @@ export default function TextArea() {
     return (
         <>
             <div>
-                <Rune segments={new Set([1, 2, 3, 4])} />
-                <Rune segments={new Set([3, 8, 11])} />
-                <Rune segments={new Set([1, 3, 5, 7, 9, 11])} />
-                <Rune segments={new Set([2, 4, 6, 8, 10, 12])} />
+                {
+                    tokens.map((token: Array<Array<number>> | string, i) => {
+                        if (Array.isArray(token)) {
+                            return (
+                                <span className="word">
+                                    {
+                                        token.map((rune, j) => {
+                                            return <Rune key={`${i}, ${j}`} segments={new Set(rune)}/>
+                                        })
+                                    }
+                                </span>
+                            );
+                        } else {
+                            return <span key={i}>{token}</span>
+                        }
+                    })
+                }
             </div>
             <form onSubmit={onSubmit}>
-                <input name="input" value={inputText} onChange={(event) => { setInputText(event.target.value) }} />
+                <textarea name="input" value={inputText} onChange={(event) => { setInputText(event.target.value) }} />
                 <input type="submit" value="Submit" />
             </form>
         </>
