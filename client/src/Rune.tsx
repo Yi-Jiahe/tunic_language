@@ -49,7 +49,7 @@ export default function Rune(props: RuneProps) {
     return (
         <svg width={2 * X} height={3.5 * Y}>
             {
-                props.title && <title>props.title</title>
+                props.title && <title>{props.title}</title>
             }
             <g className="vowels">
                 {

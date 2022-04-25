@@ -33,14 +33,14 @@ def to_phoneme(strInput):
 
 def to_runes(phonemes):
     """
-    Converts a list of phonemes (a word) into a list of Tunic runes with a list of their associated readings
+    Converts a list of phonemes (a word) into a list of Tunic runes with their associated readings
 
     :param phonemes:
     A list of phonemes from the CMUDict
     :return:
-    A list of Tunic runes representing the word and a list of readings for each rune
+    A list of Tunic runes representing the word and readings for each rune
     """
-    ret = [[], []]
+    ret = []
 
     has_vowel, has_consonant = False, False
     rune = set()
@@ -50,8 +50,7 @@ def to_runes(phonemes):
         segments = get_segments(phoneme)
         if is_vowel(phoneme):
             if has_vowel:
-                ret[0].append(rune)
-                ret[1].append(rune_reading)
+                ret.append([rune, rune_reading])
                 has_vowel, has_consonant = True, False
                 rune = set() | segments
                 rune_reading = [phoneme]
@@ -61,8 +60,7 @@ def to_runes(phonemes):
                 rune_reading.append(phoneme)
         else:
             if has_consonant:
-                ret[0].append(rune)
-                ret[1].append(rune_reading)
+                ret.append([rune, rune_reading])
                 has_vowel, has_consonant = False, True
                 rune = set() | segments
                 rune_reading = [phoneme]
@@ -72,8 +70,7 @@ def to_runes(phonemes):
                     rune = rune | segments | {12}
                     # Furthermore it also means that the rune is complete and can be pushed
                     has_vowel, has_consonant = False, False
-                    ret[0].append(rune)
-                    ret[1].append(rune_reading[::-1])
+                    ret.append([rune, rune_reading[::-1]])
                     rune = set()
                     rune_reading = []
                 else:
@@ -81,8 +78,7 @@ def to_runes(phonemes):
                     rune = rune | segments
                     rune_reading.append(phoneme)
     if rune:
-        ret[0].append(rune)
-        ret[1].append(rune_reading)
+        ret.append([rune, rune_reading])
 
     return ret
 
