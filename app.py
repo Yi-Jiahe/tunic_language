@@ -15,6 +15,8 @@ def after_request(response):
         response.headers.add('Access-Control-Allow-Headers', 'x-csrf-token')
         response.headers.add('Access-Control-Allow-Methods',
                              'GET, POST, OPTIONS, PUT, PATCH, DELETE')
+    else:
+        response.headers.add("Access-Control-Allow-Origin", "*")
 
     return response
 
