@@ -18,10 +18,12 @@ def translate_to_runes():
     req_data = json.loads(request.data)
     str_input = req_data["input"]
     sentence_as_phonemes = to_phoneme(str_input)
-    output = [to_runes(x) if isinstance(x, list) else x for x in sentence_as_phonemes]
-    print(output)
+    runes, rune_readings = [to_runes(x) if isinstance(x, list) else x for x in sentence_as_phonemes]
 
     return {
         'statusCode': 200,
-        'body': json.dumps(output, default=lambda x: list(x) if isinstance(x, set) else x)
+        'body': {
+            'runes': json.dumps(runes, default=lambda x: list(x) if isinstance(x, set) else x),
+            'rune_readings': json.dumps(rune_readings),
+        }
     }

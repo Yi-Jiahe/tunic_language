@@ -18,8 +18,10 @@ export default function TextArea() {
             return response.json();
         }).then((data) => {
             console.log("Response body", data)
-            console.log("Parsed body", JSON.parse(data["body"]));
-            setTokens(JSON.parse(data["body"]));
+            const parsedBody = JSON.parse(data["body"]);
+            console.log("Parsed body", parsedBody);
+
+            setTokens(parsedBody["runes"]);
         });
 
         console.log("Submitted:", inputText);
