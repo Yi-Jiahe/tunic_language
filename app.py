@@ -1,24 +1,11 @@
 import json
 
 from flask import Flask, make_response, request
+from flask_cors import CORS
 app = Flask(__name__)
+CORS(app)
 
 from main import to_phoneme, to_runes
-
-
-@app.after_request
-def after_request(response):
-    if request.method == 'OPTIONS':
-        response = make_response()
-        response.headers.add("Access-Control-Allow-Origin", "*")
-        response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
-        response.headers.add('Access-Control-Allow-Headers', 'x-csrf-token')
-        response.headers.add('Access-Control-Allow-Methods',
-                             'GET, POST, OPTIONS, PUT, PATCH, DELETE')
-    else:
-        response.headers.add("Access-Control-Allow-Origin", "*")
-
-    return response
 
 
 @app.route('/')
