@@ -22,7 +22,7 @@ export default function TextArea() {
             setTokens(JSON.parse(data["body"]));
         });
 
-        console.log("Submitted", inputText);
+        console.log("Submitted:", inputText);
     }
 
     return (
@@ -32,7 +32,7 @@ export default function TextArea() {
                     tokens.map((token: Array<Array<number>> | string, i) => {
                         if (Array.isArray(token)) {
                             return (
-                                <span className="word">
+                                <span key={i} className="word">
                                     {
                                         token.map((rune, j) => {
                                             return <Rune key={`${i}, ${j}`} segments={new Set(rune)}/>
