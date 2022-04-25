@@ -1,4 +1,5 @@
 import nltk
+import json
 
 from mappings.mappings import characters
 
