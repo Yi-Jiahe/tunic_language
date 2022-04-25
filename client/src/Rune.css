@@ -1,4 +1,10 @@
 line {
     stroke:rgb(0,0,0);
-    stroke-width:4;
+    stroke-width: 3;
+}
+
+circle {
+    stroke:rgb(0,0,0);
+    stroke-width:3;
+    fill:none;
 }

@@ -1,23 +1,28 @@
 import React from 'react';
 import './Rune.css';
 
-const scale = 20;
+const scale = 1;
 
-const X = scale * Math.sqrt(3);
-const Y = scale * 1;
+const X = scale * 20 * Math.sqrt(3);
+const Y = scale * 20 * 1;
+const marginLeft = 0;
 const points = [
-    [2 * X, 0.5 * Y],
-    [X, 0],
-    [0, 0.5 * Y],
-    [X, Y],
-    [2 * X, 2.5 * Y],
-    [X, 2 * Y],
-    [0, 2.5 * Y],
-    [X, 3 * Y],
-    [2 * X, 1.5 * Y],
-    [X, 1.5 * Y],
-    [0, 1.5 * Y],
-    [0, 2 * Y],
+    // Top Diamond
+    [marginLeft + 2 * X, 0.5 * Y],
+    [marginLeft + X, 0],
+    [marginLeft + 0, 0.5 * Y],
+    [marginLeft + X, Y],
+    // Bottom Diamond
+    [marginLeft + 2 * X, 2.5 * Y],
+    [marginLeft + X, 2 * Y],
+    [marginLeft + 0, 2.5 * Y],
+    [marginLeft + X, 3 * Y],
+    // Middle Line
+    [marginLeft + 2 * X, 1.5 * Y],
+    [marginLeft + X, 1.5 * Y],
+    [marginLeft + 0, 1.5 * Y],
+    // Start of segment 3 below the midle line
+    [marginLeft + 0, 2 * Y],
 ]
 
 interface LineProps {
@@ -44,19 +49,24 @@ export default function Rune(props: RuneProps) {
         <svg width={2 * X} height={3.5 * Y}>
             <g className="vowels">
                 {
-                    props.segments.has(1) && <Line start={0} end={1} />
+                    props.segments.has(1) &&
+                    <Line start={0} end={1} />
                 }
                 {
-                    props.segments.has(2) && <Line start={1} end={2} />
+                    props.segments.has(2) &&
+                    <Line start={1} end={2} />
                 }
                 {
-                    props.segments.has(3) && <g><Line start={2} end={10} /><Line start={11} end={6} /></g>
+                    props.segments.has(3) &&
+                    <g><Line start={2} end={10} /><Line start={11} end={6} /></g>
                 }
                 {
-                    props.segments.has(4) && <Line start={6} end={7} />
+                    props.segments.has(4) &&
+                    <Line start={6} end={7} />
                 }
                 {
-                    props.segments.has(5) && <Line start={7} end={4} />
+                    props.segments.has(5) &&
+                    <Line start={7} end={4} />
                 }
             </g>
 
@@ -88,6 +98,11 @@ export default function Rune(props: RuneProps) {
             </g>
 
             <Line start={8} end={10} />
+
+            {
+                props.segments.has(12) &&
+                <circle cx={points[7][0]} cy={points[7][1] + scale * 5} r={scale * 5} />
+            }
 
 
         </svg>);
