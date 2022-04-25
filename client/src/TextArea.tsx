@@ -31,13 +31,13 @@ export default function TextArea() {
         <>
             <div>
                 {
-                    tokens.map((token: Array<Array<number>> | string, i) => {
+                    tokens.map((token: Array<[Array<number>, Array<string>]> | string, i) => {
                         if (Array.isArray(token)) {
                             return (
                                 <span key={i} className="word">
                                     {
-                                        token.map((rune, j) => {
-                                            return <Rune key={`${i}, ${j}`} segments={new Set(rune)}/>
+                                        token.map((rune: [Array<number>, Array<string>], j) => {
+                                            return <Rune key={`${i}, ${j}`} title={rune[1].join("")} segments={new Set(rune[0])}/>
                                         })
                                     }
                                 </span>

@@ -82,7 +82,7 @@ def to_runes(phonemes):
                     rune_reading.append(phoneme)
     if rune:
         ret[0].append(rune)
-        ret[1].append(rune_reading[::-1])
+        ret[1].append(rune_reading)
 
     return ret
 
