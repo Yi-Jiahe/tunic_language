@@ -3,7 +3,7 @@ import './Rune.css';
 
 const scale = 1;
 
-const X = scale * 20 * Math.sqrt(3);
+const X = scale * 20 * Math.sqrt(2);
 const Y = scale * 20 * 1;
 const marginLeft = 0;
 const points = [
