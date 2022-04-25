@@ -1,5 +1,4 @@
 import nltk
-import json
 
 from mappings.mappings import characters
 
@@ -62,9 +61,18 @@ def to_runes(phonemes):
                 has_vowel, has_consonant = False, False
                 rune = set() | segments
             else:
-                has_consonant = True
-                rune = rune | segments
-    ret.append(rune)
+                if has_vowel:
+                    # If the rune already has a vowel it means that the vowel comes first and segment 12 is present
+                    rune = rune | segments | {12}
+                    # Furthermore it also means that the rune is complete and can be pushed
+                    has_vowel, has_consonant = False, False
+                    ret.append(rune)
+                    rune = set()
+                else:
+                    has_consonant = True
+                    rune = rune | segments
+    if rune:
+        ret.append(rune)
 
     return ret
 
