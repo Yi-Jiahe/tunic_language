@@ -37,6 +37,17 @@
   }
 }
 
+.App-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.width-500 {
+  width: 1000px;
+}
+
 footer {
   position: fixed;
   left: 0;

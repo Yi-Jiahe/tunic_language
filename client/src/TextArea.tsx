@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import Rune from './Rune';
 import './TextArea.css';
 
-export default function TextArea() {
+export default function TextArea() : JSX.Element {
     const [tokens, setTokens] = useState([]);
     const timeout = useRef<NodeJS.Timeout>();
 

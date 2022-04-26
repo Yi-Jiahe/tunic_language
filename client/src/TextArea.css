@@ -24,9 +24,10 @@
 .grid-container {
     display: grid;
     grid-template-columns: 50% 50%;
-    grid-template-rows: 300px;
+    grid-template-rows: auto;
     grid-template-areas:
-    'english tunic'
+    'english tunic';
+    min-height: 300px;
 }
 
 .grid-item {
