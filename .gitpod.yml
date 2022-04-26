@@ -3,10 +3,17 @@
 # and commit this file to your remote git repository to share the goodness with others.
 
 tasks:
-  - init: |
+  - name: Prepare Python dependencies
+    init: |
       pip install -r requirements.txt
       python -m nltk.downloader cmudict punkt
-    command: python main.py
-
+    # command: python main.py
+  - name: Start React Dev Server
+    init: |
+      cd client
+      npm install
+    command: |
+      cd client
+      npm run dev
 
 
