@@ -31,6 +31,13 @@ nltk.download('cmudict')
 nltk.download('punkt')
 ```
 
+## Client
+
+Google translate styled translator to convert English text to tunic script.
+
 ## To-do
 
-Add support for contractions, e.g. don't, they're, let's, you'll, etc.
+1) Implement rune to phoneme on BE
+2) Look into OCR to identify and break down runes
+3) Add rune input to FE (keyboard? drag to draw?)
+4) Add support for contractions, e.g. don't, they're, let's, you'll, etc.
