@@ -10,8 +10,18 @@
     grid-area: english;
 }
 
+.text-area {
+    padding: 20px;
+    margin: 10px;
+    flex-grow: 1;
+}
+
+.tunic .text-area {
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 5px;
+}
+
 .grid-container {
-    padding: 10px;
     display: grid;
     grid-template-columns: 50% 50%;
     grid-template-rows: 300px;
@@ -19,9 +29,17 @@
     'english tunic'
 }
 
+.grid-item {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
 .language-title {
+    margin: 5px;
     border: solid 1px rgba(0, 0, 0, 0.4);
     border-radius: 5px;
+    padding: 10px;
 }
 
 .word {
@@ -39,8 +57,7 @@
 }
 
 textarea {
-    width: 100%;
-    height: 80%;
     border: none;
     outline: none;
+    resize: none;
 }
