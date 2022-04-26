@@ -3,8 +3,8 @@ import './Rune.css';
 
 const scale = 1;
 
-const X = scale * 20 * Math.sqrt(2);
-const Y = scale * 20 * 1;
+const X = scale * 10 * Math.sqrt(2);
+const Y = scale * 10 * 1;
 const marginLeft = 0;
 const points = [
     // Top Diamond
@@ -105,7 +105,7 @@ export default function Rune(props: RuneProps) {
 
             {
                 props.segments.has(12) &&
-                <circle cx={points[7][0]} cy={points[7][1] + scale * 5} r={scale * 5} />
+                <circle cx={points[7][0]} cy={points[7][1] + scale * 2.5} r={scale * 2.5} />
             }
 
 

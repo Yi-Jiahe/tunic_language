@@ -1,57 +1,67 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import Rune from './Rune';
 import './TextArea.css';
 
 export default function TextArea() {
-    const [inputText, setInputText] = useState("");
     const [tokens, setTokens] = useState([]);
+    const timeout = useRef<NodeJS.Timeout>();
 
-    const onSubmit = (event: React.FormEvent) => {
-        event.preventDefault();
+    const handleDebounceSearch = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+        clearTimeout(timeout.current as NodeJS.Timeout);
 
-        fetch("https://tunic-language-zic4jhgpva-as.a.run.app/to-runes", {
-            method: 'POST',
-            body: JSON.stringify({
-                'input': inputText
-            })
-        }).then((response) => {
-            return response.json();
-        }).then((data) => {
-            console.log("Response body", data)
-            const parsedBody = JSON.parse(data["body"]["runes"]);
-            console.log("Parsed body", parsedBody);
+        timeout.current = setTimeout(() => {
+            fetch("https://tunic-language-zic4jhgpva-as.a.run.app/to-runes", {
+                method: 'POST',
+                body: JSON.stringify({
+                    'input': event.target.value
+                })
+            }).then((response) => {
+                return response.json();
+            }).then((data) => {
+                console.log("Response body", data)
+                const parsedBody = JSON.parse(data["body"]["runes"]);
+                console.log("Parsed body", parsedBody);
 
-            setTokens(parsedBody);
-        });
-
-        console.log("Submitted:", inputText);
+                setTokens(parsedBody);
+            });
+        }, 600)
     }
 
     return (
         <>
-            <div>
-                {
-                    tokens.map((token: Array<[Array<number>, Array<string>]> | string, i) => {
-                        if (Array.isArray(token)) {
-                            return (
-                                <span key={i} className="word">
-                                    {
-                                        token.map((rune: [Array<number>, Array<string>], j) => {
-                                            return <Rune key={`${i}, ${j}`} title={rune[1].join("")} segments={new Set(rune[0])}/>
-                                        })
-                                    }
-                                </span>
-                            );
-                        } else {
-                            return <span key={i}>{token}</span>
-                        }
-                    })
-                }
+            <div className='grid-container'>
+                <div className='english'>
+                    <div>English</div>
+                    <textarea 
+                        name="input"
+                        placeholder="Enter Text"
+                        onChange={handleDebounceSearch} />
+                </div>
+                <div className='tunic'>
+                    <div>Tunic</div>
+                    <div className='left-align'>
+                    {
+                        tokens.length === 0 
+                        ? <span className="placeholder">Translation</span>
+                        : tokens.map((token: Array<[Array<number>, Array<string>]> | string, i) => {
+                            if (Array.isArray(token)) {
+                                return (
+                                    <span key={i} className="word">
+                                        {
+                                            token.map((rune: [Array<number>, Array<string>], j) => {
+                                                return <Rune key={`${i}, ${j}`} title={rune[1].join("")} segments={new Set(rune[0])} />
+                                            })
+                                        }
+                                    </span>
+                                );
+                            } else {
+                                return <span key={i} className="puncuation">{token}</span>
+                            }
+                        })
+                    }
+                    </div>
+                </div>
             </div>
-            <form onSubmit={onSubmit}>
-                <textarea name="input" value={inputText} onChange={(event) => { setInputText(event.target.value) }} />
-                <input type="submit" value="Submit" />
-            </form>
         </>
 
     )

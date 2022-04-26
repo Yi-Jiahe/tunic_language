@@ -1,6 +1,7 @@
 line {
     stroke:rgb(0,0,0);
-    stroke-width: 3;
+    stroke-width: 2;
+    stroke-linecap: round;
 }
 
 circle {
