@@ -7,6 +7,9 @@ function App() {
   return (
     <div className="App">
       <TextArea />
+      <footer>
+        <span><a href="https://github.com/Yi-Jiahe/tunic_language">Source</a></span>
+      </footer>
     </div>
   );
 }

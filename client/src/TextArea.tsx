@@ -62,6 +62,7 @@ export default function TextArea() {
                     </div>
                 </div>
             </div>
+            <hr />
         </>
 
     )

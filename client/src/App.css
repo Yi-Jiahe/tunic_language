@@ -36,3 +36,25 @@
     transform: rotate(360deg);
   }
 }
+
+footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: right;
+}
+
+footer a:link { text-decoration: none; }
+
+
+footer a:visited { 
+  text-decoration: none;
+  color: blue; 
+}
+
+footer a:hover { text-decoration: none; }
+
+
+footer a:active { text-decoration: none; }
+
