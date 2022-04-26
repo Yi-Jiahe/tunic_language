@@ -11,3 +11,4 @@ regex==2022.4.24
 six==1.16.0
 tqdm==4.64.0
 Werkzeug==2.1.1
+gunicorn==20.1.0
