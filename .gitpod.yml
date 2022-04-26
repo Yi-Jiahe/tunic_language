@@ -9,7 +9,9 @@ tasks:
       python -m nltk.downloader cmudict punkt
     # command: python main.py
   - name: Start React Dev Server
-    init: cd client && npm install
-    command: cd client && npm run start
+    init: |
+      cd client
+      npm install
+    command: npm run start
 
 
