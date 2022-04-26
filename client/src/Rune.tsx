@@ -5,24 +5,28 @@ const scale = 1;
 
 const X = scale * 10 * Math.sqrt(2);
 const Y = scale * 10 * 1;
-const marginLeft = 0;
+const marginTop = 1;
+const marginLeft = 1;
 const points = [
     // Top Diamond
-    [marginLeft + 2 * X, 0.5 * Y],
-    [marginLeft + X, 0],
-    [marginLeft + 0, 0.5 * Y],
-    [marginLeft + X, Y],
+    [2 * X, 0.5 * Y],
+    [X, 0],
+    [0, 0.5 * Y],
+    [X, Y],
     // Bottom Diamond
-    [marginLeft + 2 * X, 2.5 * Y],
-    [marginLeft + X, 2 * Y],
-    [marginLeft + 0, 2.5 * Y],
-    [marginLeft + X, 3 * Y],
+    [2 * X, 2.5 * Y],
+    [X, 2 * Y],
+    [0, 2.5 * Y],
+    [X, 3 * Y],
     // Middle Line
-    [marginLeft + 2 * X, 1.5 * Y],
-    [marginLeft + X, 1.5 * Y],
-    [marginLeft + 0, 1.5 * Y],
-    // Start of segment 3 below the midle line
-    [marginLeft + 0, 2 * Y],
+    [2 * X, 1.5 * Y],
+    [X, 1.5 * Y],
+    [0, 1.5 * Y],
+    // Points for segment 3
+    [marginLeft, 0.5 * Y],
+    [marginLeft, 1.5 * Y],
+    [marginLeft, 2 * Y],
+    [marginLeft, 2.5 * Y],
 ]
 
 interface LineProps {
@@ -34,9 +38,9 @@ function Line(props: LineProps) {
     return (
         <line
             x1={points[props.start][0]}
-            y1={points[props.start][1]}
+            y1={points[props.start][1] + marginTop}
             x2={points[props.end][0]}
-            y2={points[props.end][1]} />
+            y2={points[props.end][1] + marginTop} />
     );
 }
 
@@ -47,7 +51,7 @@ interface RuneProps {
 
 export default function Rune(props: RuneProps) {
     return (
-        <svg width={2 * X} height={3.5 * Y}>
+        <svg width={2 * X} height={3.5 * Y + 2 * marginTop}>
             {
                 props.title && <title>{props.title}</title>
             }
@@ -62,7 +66,7 @@ export default function Rune(props: RuneProps) {
                 }
                 {
                     props.segments.has(3) &&
-                    <g><Line start={2} end={10} /><Line start={11} end={6} /></g>
+                    <g><Line start={11} end={12} /><Line start={13} end={14} /></g>
                 }
                 {
                     props.segments.has(4) &&
@@ -105,7 +109,7 @@ export default function Rune(props: RuneProps) {
 
             {
                 props.segments.has(12) &&
-                <circle cx={points[7][0]} cy={points[7][1] + scale * 2.5} r={scale * 2.5} />
+                <circle cx={points[7][0]} cy={points[7][1] + scale * 2.5 + marginTop} r={scale * 2.5} />
             }
 
 

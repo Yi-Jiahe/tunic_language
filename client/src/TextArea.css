@@ -1,11 +1,3 @@
-.grid-container {
-    display: grid;
-    grid-template-columns: 50vw 50vw;
-    grid-template-rows: 300px;
-    grid-template-areas:
-    'english tunic'
-}
-
 .left-align {
     text-align: left;
 }
@@ -16,6 +8,21 @@
 
 .english {
     grid-area: english;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 50vw 50vw;
+    grid-template-rows: 300px;
+    grid-template-areas:
+    'english tunic'
+}
+
+.language-title {
+    padding: 5px 0px 5px 5px;
+    border: solid 1px rgba(0, 0, 0, 0.4);
+    border-radius: 5px;
+    margin: 10px 0px 10px 10px;
 }
 
 .word {

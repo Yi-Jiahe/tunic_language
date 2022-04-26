@@ -29,17 +29,17 @@ export default function TextArea() {
 
     return (
         <>
-            <div className='grid-container'>
+            <div className='grid-container left-align'>
                 <div className='english'>
-                    <div>English</div>
+                    <div className="language-title">English</div>
                     <textarea 
                         name="input"
                         placeholder="Enter Text"
                         onChange={handleDebounceSearch} />
                 </div>
                 <div className='tunic'>
-                    <div>Tunic</div>
-                    <div className='left-align'>
+                    <div className="language-title">Tunic</div>
+                    <div>
                     {
                         tokens.length === 0 
                         ? <span className="placeholder">Translation</span>
