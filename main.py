@@ -17,7 +17,7 @@ def to_phoneme(strInput):
     """
     ret = []
 
-    nltk_tokens = nltk.word_tokenize(strInput)
+    nltk_tokens = nltk.wordpunct_tokenize(strInput)
     # print(nltk_tokens)
 
     for word in nltk_tokens:
