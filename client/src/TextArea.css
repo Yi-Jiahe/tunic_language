@@ -21,14 +21,30 @@
     border-radius: 5px;
 }
 
+
+
 .grid-container {
     display: grid;
-    grid-template-columns: 50% 50%;
-    grid-template-rows: auto;
+    grid-template-columns: 100%;
+    grid-template-rows: auto auto;
     grid-template-areas:
-    'english tunic';
-    min-height: 300px;
+    'english'
+    'tunic';
+    min-height:600px;
 }
+
+/* For Tablet/Desktop */
+@media only screen and (min-width: 600px) {
+    .grid-container {
+        display: grid;
+        grid-template-columns: 50% 50%;
+        grid-template-rows: auto;
+        grid-template-areas:
+        'english tunic';
+        min-height: 300px;
+    }
+}
+
 
 .grid-item {
     display: flex;

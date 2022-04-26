@@ -7,7 +7,7 @@ function App() {
   return (
     <div className="App">
       <div className="App-body">
-        <div className="width-500">
+        <div className="width-100 max-width-700px">
           <TextArea />
         </div>
       </div>

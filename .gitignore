@@ -22,3 +22,5 @@ package/**
 **.zip
 
 __pycache__/
+
+../tunic_ocr/screencaptures
