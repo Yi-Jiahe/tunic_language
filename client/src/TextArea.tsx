@@ -36,6 +36,7 @@ export default function TextArea() : JSX.Element {
                         className="text-area"
                         name="input"
                         placeholder="Enter Text"
+                        spellCheck="true"
                         onChange={handleDebounceSearch} />
                 </div>
                 <div className='grid-item tunic'>
