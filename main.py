@@ -1,6 +1,6 @@
 import nltk
 
-from mappings.mappings import characters
+from mappings.mappings import characters, runes
 
 
 arpabet = nltk.corpus.cmudict.dict()
@@ -94,12 +94,14 @@ def get_segments(phoneme):
 
     # Remove the stress markings from the characters because they are not represented by Tunic runes
     phoneme = ''.join(i for i in phoneme if not i.isdigit())
-    return characters[phoneme]["segments"]
+    IPA = characters[phoneme]["IPA"]
+    return runes[IPA]["segments"]
 
 
 def is_vowel(phoneme):
     phoneme = ''.join(i for i in phoneme if not i.isdigit())
-    return characters[phoneme]["type"] == "vowel"
+    IPA = characters[phoneme]["IPA"]
+    return runes[IPA]["type"] == "vowel"
 
 
 if __name__ == '__main__':
