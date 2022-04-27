@@ -25,9 +25,7 @@ with open("./mappings/IPA.runes") as f:
     character_type = "vowel"
     for line in f:
         result = prog.match(line)
-        if line == "# Consonants":
-            character_type = "consonant"
-            continue
+
         if result:
             symbol = result.group(1)
             segments = frozenset([int(x) for x in filter(lambda x: x.isdigit(), result.group(2).split())])
@@ -35,6 +33,8 @@ with open("./mappings/IPA.runes") as f:
                 "type": character_type,
                 "segments": segments
             }
+        elif line.startswith("# Consonants"):
+            character_type = "consonant"
 
 
 if __name__ == "__main__":
