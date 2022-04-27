@@ -3,28 +3,28 @@ import './Rune.css';
 
 const X = Math.sqrt(2);
 const Y = 1;
-const marginTop = 1;
-const marginLeft = 1;
+const marginTop = 0.1;
+const marginLeft = 0.1;
 const Points = [
     // Top Diamond
-    [2 * X, 0.5 * Y],
-    [X, 0],
-    [0, 0.5 * Y],
-    [X, Y],
+    [2 * X, marginTop + 0.5 * Y],
+    [X, marginTop],
+    [0, marginTop + 0.5 * Y],
+    [X, marginTop + Y],
     // Bottom Diamond
-    [2 * X, 2.5 * Y],
-    [X, 2 * Y],
-    [0, 2.5 * Y],
-    [X, 3 * Y],
+    [2 * X, marginTop + 2.5 * Y],
+    [X, marginTop + 2 * Y],
+    [0, marginTop + 2.5 * Y],
+    [X, marginTop + 3 * Y],
     // Middle Line
-    [2 * X, 1.5 * Y],
-    [X, 1.5 * Y],
-    [0, 1.5 * Y],
+    [2 * X, marginTop + 1.5 * Y],
+    [X, marginTop + 1.5 * Y],
+    [0, marginTop + 1.5 * Y],
     // Points for segment 3
-    [marginLeft, 0.5 * Y],
-    [marginLeft, 1.5 * Y],
-    [marginLeft, 2 * Y],
-    [marginLeft, 2.5 * Y],
+    [marginLeft, marginTop + 0.5 * Y],
+    [marginLeft, marginTop + 1.5 * Y],
+    [marginLeft, marginTop + 2 * Y],
+    [marginLeft, marginTop + 2.5 * Y],
 ]
 
 interface RuneProps {
@@ -35,8 +35,8 @@ interface RuneProps {
 
 export default function Rune(props: RuneProps) {
     const fontSize = props.fontSize === undefined ? 10 : props.fontSize;
-
-    const points = Points.map((point) => [point[0] * fontSize, point[1] * fontSize])
+    const strokeWidth = fontSize * 1 / 5;
+    const points = Points.map((point) => [point[0] * fontSize, point[1] * fontSize]);
 
     const line = (start: number, end: number, rounded?: boolean) => {
         return (
@@ -45,13 +45,13 @@ export default function Rune(props: RuneProps) {
                 y1={points[start][1] + marginTop}
                 x2={points[end][0]}
                 y2={points[end][1] + marginTop}
-                strokeWidth={fontSize * 1/5}
+                strokeWidth={strokeWidth}
                 strokeLinecap={rounded ? 'round' : 'butt'} />
         )
     }
 
     return (
-        <svg width={2 * X} height={3.5 * Y + 2 * marginTop}>
+        <svg width={2 * X * fontSize} height={4 * Y * fontSize}>
             {
                 props.title && <title>{props.title}</title>
             }
@@ -66,7 +66,7 @@ export default function Rune(props: RuneProps) {
                 }
                 {
                     props.segments.has(3) &&
-                    <g>{line(11, 12)}{line(13,14)}</g>
+                    <g>{line(11, 12)}{line(13, 14)}</g>
                 }
                 {
                     props.segments.has(4) &&
@@ -104,12 +104,17 @@ export default function Rune(props: RuneProps) {
                     line(4, 5)
                 }
             </g>
-            
-            line(8, 10)
+
+            {line(8, 10)}
 
             {
                 props.segments.has(12) &&
-                <circle cx={points[7][0]} cy={points[7][1] + fontSize * 2.5 + marginTop} r={fontSize * 2.5} />
+                <circle
+                    cx={points[7][0]}
+                    cy={points[7][1] + fontSize * (1/4 + marginTop)}
+                    r={fontSize * 1 / 4} 
+                    strokeWidth={strokeWidth}
+                    />
             }
         </svg>);
 }
