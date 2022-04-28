@@ -1,10 +1,12 @@
 import React, { useState, useRef } from 'react';
 import Rune from './Rune';
+import RuneCanvas from './RuneCanvas';
 import './TextArea.css';
 
 export default function TextArea(): JSX.Element {
     const [tokens, setTokens] = useState([]);
     const timeout = useRef<NodeJS.Timeout>();
+    const [modalHidden, setModalHidden] = useState(true);
 
     const handleDebounceSearch = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         clearTimeout(timeout.current as NodeJS.Timeout);
@@ -31,7 +33,9 @@ export default function TextArea(): JSX.Element {
         <>
             <div className='grid-container left-align'>
                 <div className='grid-item english'>
-                    <div className="language-title">English</div>
+                    <div className='language-header'>
+                        <div className="language-title">English</div>
+                    </div>
                     <textarea
                         className="text-area"
                         name="input"
@@ -40,7 +44,10 @@ export default function TextArea(): JSX.Element {
                         onChange={handleDebounceSearch} />
                 </div>
                 <div className='grid-item tunic'>
-                    <div className="language-title">Tunic</div>
+                    <div className='language-header'>
+                        <div className="language-title">Tunic</div>
+                        <button onClick={() => { setModalHidden(false); }}>Edit</button>
+                    </div>
                     <div className="text-area">
                         {
                             tokens.length === 0
@@ -68,6 +75,18 @@ export default function TextArea(): JSX.Element {
                 </div>
             </div>
             <hr />
+
+            <div className={`modal ${modalHidden ? 'hidden' : ''}`}>
+                <div className="modal-content">
+                    <RuneCanvas
+                        width={600}
+                        height={400} />
+                    <button 
+                        onClick={() => { setModalHidden(true); }}>
+                        Close
+                    </button>
+                </div>
+            </div>
         </>
 
     )

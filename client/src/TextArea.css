@@ -21,8 +21,6 @@
     border-radius: 5px;
 }
 
-
-
 .grid-container {
     display: grid;
     grid-template-columns: 100%;
@@ -45,11 +43,15 @@
     }
 }
 
-
 .grid-item {
     display: flex;
     flex-direction: column;
     padding: 10px;
+}
+
+.language-header {
+    display: flex;
+    flex-direction: row;
 }
 
 .language-title {
@@ -57,6 +59,7 @@
     border: solid 1px rgba(0, 0, 0, 0.4);
     border-radius: 5px;
     padding: 10px;
+    flex-grow: 1;
 }
 
 .word {
@@ -78,3 +81,27 @@ textarea {
     outline: none;
     resize: none;
 }
+
+.modal {
+    display: block;
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.modal.hidden {
+    display: none;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+  }
