@@ -1,7 +1,7 @@
 import logging
 import json
 
-from main import to_phoneme, to_runes
+from tunic_language.translation import to_phoneme, to_runes
 
 
 logger = logging.getLogger()
