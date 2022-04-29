@@ -10,7 +10,7 @@ import google.cloud.logging
 client = google.cloud.logging.Client()
 client.setup_logging()
 
-from tunic_language.translation import to_phoneme, to_runes
+from tunic_language import to_phoneme, to_runes
 
 
 @app.route('/')
