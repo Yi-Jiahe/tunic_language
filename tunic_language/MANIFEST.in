@@ -1,0 +1,3 @@
+include src/tunic_language/cmudict.IPA
+include src/tunic_language/cmudict.phones
+include src/tunic_language/IPA.runes

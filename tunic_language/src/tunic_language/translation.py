@@ -1,6 +1,6 @@
 import nltk
 
-from mappings import characters, runes
+from .mappings import characters, runes
 
 
 arpabet = nltk.corpus.cmudict.dict()

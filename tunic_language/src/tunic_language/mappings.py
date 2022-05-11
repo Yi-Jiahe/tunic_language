@@ -1,15 +1,18 @@
+from importlib import resources
 import re
+
 
 characters = {}
 
 # Create a dictionary of phones from the CMUDict
-with open("./mappings/cmudict.phones") as f:
+with resources.open_text("tunic_language", "cmudict.phones") as f:
     for line in f:
+
         symbol, type = line.split()
         characters[symbol] = {"type": type}
 
 
-with open("./mappings/cmudict.IPA") as f:
+with resources.open_text("tunic_language", "cmudict.IPA") as f:
     prog = re.compile("([A-Z]+)\s*([A-Z]+)")
     for line in f:
         result = prog.match(line)
@@ -19,7 +22,7 @@ with open("./mappings/cmudict.IPA") as f:
 
 runes = {}
 
-with open("./mappings/IPA.runes") as f:
+with resources.open_text("tunic_language", "IPA.runes") as f:
     prog = re.compile("([A-Z]+).*\((.*)\)")
 
     character_type = "vowel"
