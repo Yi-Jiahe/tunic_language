@@ -28,9 +28,10 @@ const Points = [
 ]
 
 interface RuneProps {
-    segments: Set<number>,
+    segments?: Set<number>,
     title?: string,
-    fontSize?: number
+    fontSize?: number,
+    drawPoints?: boolean
 }
 
 export default function Rune(props: RuneProps) {
@@ -55,66 +56,82 @@ export default function Rune(props: RuneProps) {
             {
                 props.title && <title>{props.title}</title>
             }
-            <g className="vowels">
-                {
-                    props.segments.has(1) &&
-                    line(0, 1)
-                }
-                {
-                    props.segments.has(2) &&
-                    line(1, 2)
-                }
-                {
-                    props.segments.has(3) &&
-                    <g>{line(11, 12)}{line(13, 14)}</g>
-                }
-                {
-                    props.segments.has(4) &&
-                    line(6, 7)
-                }
-                {
-                    props.segments.has(5) &&
-                    line(7, 4)
-                }
-            </g>
-
-            <g className="consonants">
-                {
-                    props.segments.has(6) &&
-                    line(0, 3)
-                }
-                {
-                    props.segments.has(7) &&
-                    line(1, 9)
-                }
-                {
-                    props.segments.has(8) &&
-                    line(2, 3)
-                }
-                {
-                    props.segments.has(9) &&
-                    line(6, 5)
-                }
-                {
-                    props.segments.has(10) &&
-                    line(7, 5)
-                }
-                {
-                    props.segments.has(11) &&
-                    line(4, 5)
-                }
-            </g>
-
-            {line(8, 10)}
-
+            
             {
-                props.segments.has(12) &&
-                <circle
-                    cx={points[7][0]}
-                    cy={points[7][1] + fontSize * (1/4 + marginTop)}
-                    r={fontSize * 1 / 4} 
-                    strokeWidth={strokeWidth}
-                    />
+                // Divider line
+                line(8, 10)
             }
+
+            {props.drawPoints !== undefined &&
+                <g>
+                    
+                </g>
+            }
+
+            {props.segments !== undefined &&
+                <g className="segments">
+                    <g className="vowels">
+                        {
+                            props.segments.has(1) &&
+                            line(0, 1)
+                        }
+                        {
+                            props.segments.has(2) &&
+                            line(1, 2)
+                        }
+                        {
+                            props.segments.has(3) &&
+                            <g>{line(11, 12)}{line(13, 14)}</g>
+                        }
+                        {
+                            props.segments.has(4) &&
+                            line(6, 7)
+                        }
+                        {
+                            props.segments.has(5) &&
+                            line(7, 4)
+                        }
+                    </g>
+
+                    <g className="consonants">
+                        {
+                            props.segments.has(6) &&
+                            line(0, 3)
+                        }
+                        {
+                            props.segments.has(7) &&
+                            line(1, 9)
+                        }
+                        {
+                            props.segments.has(8) &&
+                            line(2, 3)
+                        }
+                        {
+                            props.segments.has(9) &&
+                            line(6, 5)
+                        }
+                        {
+                            props.segments.has(10) &&
+                            line(7, 5)
+                        }
+                        {
+                            props.segments.has(11) &&
+                            line(4, 5)
+                        }
+                    </g>
+
+
+                    {
+                        props.segments.has(12) &&
+                        <circle
+                            cx={points[7][0]}
+                            cy={points[7][1] + fontSize * (1 / 4 + marginTop)}
+                            r={fontSize * 1 / 4}
+                            strokeWidth={strokeWidth}
+                        />
+                    }
+                </g>
+            }
+
         </svg>);
 }
