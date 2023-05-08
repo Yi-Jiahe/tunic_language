@@ -2,7 +2,11 @@ import React, { useState, useRef } from 'react';
 import Rune from './Rune';
 import './TextArea.css';
 
-export default function TextArea(): JSX.Element {
+interface TextAreaProps {
+    endpoint: string
+}
+
+export default function TextArea(props: TextAreaProps): JSX.Element {
     const [tokens, setTokens] = useState([]);
     const timeout = useRef<NodeJS.Timeout>();
 
@@ -10,7 +14,7 @@ export default function TextArea(): JSX.Element {
         clearTimeout(timeout.current as NodeJS.Timeout);
 
         timeout.current = setTimeout(() => {
-            fetch("https://tunic-language-zic4jhgpva-as.a.run.app/to-runes", {
+            fetch(`${props.endpoint}/to-runes`, {
                 method: 'POST',
                 body: JSON.stringify({
                     'input': event.target.value
