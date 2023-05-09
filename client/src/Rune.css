@@ -3,7 +3,12 @@ line {
     stroke-linecap: round;
 }
 
-circle {
+.segment-12 {
     stroke:rgb(0,0,0);
+    fill:none;
+}
+
+.point {
+    stroke:rgb(200, 200, 200);
     fill:none;
 }

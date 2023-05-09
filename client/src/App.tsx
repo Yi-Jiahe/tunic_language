@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.css';
-import TextArea from './TextArea';
-import RuneInput from './RuneInput';
+import Translate from './Translate';
 
 const endpoint = "https://tunic-language-zic4jhgpva-as.a.run.app";
 
@@ -18,9 +17,8 @@ function App() {
     <div className="App">
       <div className="App-body">
         <div className="width-100 max-width-700px">
-          <TextArea endpoint={endpoint} />
+          <Translate endpoint={endpoint} />
         </div>
-        <RuneInput />
       </div>
       <footer>
         <span><a href="https://github.com/Yi-Jiahe/tunic_language">Source</a></span>

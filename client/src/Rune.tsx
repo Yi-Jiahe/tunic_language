@@ -1,33 +1,10 @@
 import React from 'react';
 import './Rune.css';
 
-const X = Math.sqrt(2);
-const Y = 1;
-const marginTop = 0.1;
-const marginLeft = 0.1;
-const Points = [
-    // Top Diamond
-    [2 * X, marginTop + 0.5 * Y],
-    [X, marginTop],
-    [0, marginTop + 0.5 * Y],
-    [X, marginTop + Y],
-    // Bottom Diamond
-    [2 * X, marginTop + 2.5 * Y],
-    [X, marginTop + 2 * Y],
-    [0, marginTop + 2.5 * Y],
-    [X, marginTop + 3 * Y],
-    // Middle Line
-    [2 * X, marginTop + 1.5 * Y],
-    [X, marginTop + 1.5 * Y],
-    [0, marginTop + 1.5 * Y],
-    // Points for segment 3
-    [marginLeft, marginTop + 0.5 * Y],
-    [marginLeft, marginTop + 1.5 * Y],
-    [marginLeft, marginTop + 2 * Y],
-    [marginLeft, marginTop + 2.5 * Y],
-]
+import { X, Y, marginTop, Points } from './consts'; 
 
 interface RuneProps {
+    className?: string,
     segments?: Set<number>,
     title?: string,
     fontSize?: number,
@@ -52,11 +29,12 @@ export default function Rune(props: RuneProps) {
     }
 
     return (
-        <svg width={2 * X * fontSize} height={4 * Y * fontSize}>
+        <svg className={props.className}
+            width={2 * X * fontSize} height={4 * Y * fontSize}>
             {
                 props.title && <title>{props.title}</title>
             }
-            
+
             {
                 // Divider line
                 line(8, 10)
@@ -64,7 +42,26 @@ export default function Rune(props: RuneProps) {
 
             {props.drawPoints !== undefined &&
                 <g>
-                    
+                    {
+                        (() => {
+                            let circles = points.filter((_, i) => (i < 8))
+                                .map((point) => {
+                                    return (<circle
+                                        cx={point[0]} cy={point[1]} r={fontSize * 1 / 4} strokeWidth={strokeWidth} className='point'
+                                    />);
+                                });
+                            circles.push(<circle
+                                cx={points[7][0]}
+                                cy={points[7][1] + fontSize * (1 / 4 + marginTop)}
+                                r={fontSize * 1 / 4}
+                                strokeWidth={strokeWidth}
+                                className='point'
+                            />);
+
+                            return circles;
+                        })()
+                    }
+
                 </g>
             }
 
@@ -128,6 +125,7 @@ export default function Rune(props: RuneProps) {
                             cy={points[7][1] + fontSize * (1 / 4 + marginTop)}
                             r={fontSize * 1 / 4}
                             strokeWidth={strokeWidth}
+                            className='segment-12'
                         />
                     }
                 </g>
@@ -135,3 +133,5 @@ export default function Rune(props: RuneProps) {
 
         </svg>);
 }
+
+export { Points };
