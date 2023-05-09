@@ -1,27 +1,43 @@
+// (0, 0) is the centre of the separator line
 const X = Math.sqrt(2);
 const Y = 1;
-const marginTop = 0.1;
-const marginLeft = 0.1;
 const Points = [
-    // Top Diamond
-    [2 * X, marginTop + 0.5 * Y],
-    [X, marginTop],
-    [0, marginTop + 0.5 * Y],
-    [X, marginTop + Y],
-    // Bottom Diamond
-    [2 * X, marginTop + 2.5 * Y],
-    [X, marginTop + 2 * Y],
-    [0, marginTop + 2.5 * Y],
-    [X, marginTop + 3 * Y],
-    // Middle Line
-    [2 * X, marginTop + 1.5 * Y],
-    [X, marginTop + 1.5 * Y],
-    [0, marginTop + 1.5 * Y],
-    // Points for segment 3
-    [marginLeft, marginTop + 0.5 * Y],
-    [marginLeft, marginTop + 1.5 * Y],
-    [marginLeft, marginTop + 2 * Y],
-    [marginLeft, marginTop + 2.5 * Y],
-]
+    // Top Diamond (0-3)
+    [X, -Y],
+    [0, -1.5 * Y],
+    [-X, -Y],
+    [0, -0.5* Y],
+    // Bottom Diamond (4-7)
+    [X, 1 * Y],
+    [0, 0.5 * Y],
+    [-X, 1 * Y],
+    [0, 1.5 * Y],
+    // Middle Line (8-10)
+    [X, 0],
+    [0, 0],
+    [-X, 0],
+    // Points for segment 3 (11)
+    [-X, 0.5 * Y],
+    // Segment 12 (12)
+    [0, 2 * Y]
+];
 
-export { X, Y, marginTop, marginLeft, Points };
+// Keys are sorted to discard order
+// Only points 0-7 and 12 are avaliable.
+const PointPairsToSegments: {[key: string]: number} = {
+    //Vowels
+    "0,1": 1,
+    "1,2": 2,
+    "2,6": 3,
+    "6,7": 4,
+    "4,7": 5,
+    //Consonants
+    "0,3": 6,
+    "1,3": 7,
+    "2,3": 8,
+    "5,6": 9,
+    "5,7": 10,
+    "4,5": 11,
+};
+
+export { X, Y, Points, PointPairsToSegments};

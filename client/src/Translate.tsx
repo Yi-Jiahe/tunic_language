@@ -55,7 +55,53 @@ const EnglishToTunic = (props: EnglishToTunicProps) => {
 }
 
 const TunicToEnglish = () => {
-    const [tokens, setTokens] = useState([]);
+    const [tokens, setTokens] = useState<([number[], string[]][])[]>([]);
+
+    const handleSpace = (rune: Set<number>) => {
+        if (tokens.length === 0) {
+            setTokens([[[Array.from(rune), Array(rune.size).fill("")]]]);
+            return;
+        }
+
+        const finishedTokens: ([number[], string[]][])[] = [
+            ...tokens.slice(0, -1), 
+            [
+                ...Array.from(tokens[tokens.length-1]), 
+                [Array.from(rune), Array(rune.size).fill("")]
+            ]
+        ]
+        setTokens([...finishedTokens, []]);
+    }
+
+    const handleEnter = (rune: Set<number>) => {
+        if (tokens.length === 0) {
+            setTokens([[[Array.from(rune), Array(rune.size).fill("")]]]);
+            return;
+        }
+
+        setTokens([
+            ...tokens.slice(0, -1), 
+            [
+                ...Array.from(tokens[tokens.length-1]), 
+                [Array.from(rune), Array(rune.size).fill("")]
+            ]
+        ]);
+    }
+
+    const handleBackspace = () => {
+        if (tokens.length === 0) {
+            return;
+        }
+
+        if (tokens[tokens.length-1].length === 0) {
+            setTokens(tokens.slice(0, -1));
+        } else {
+            setTokens([
+                ...tokens.slice(0, -1), 
+                Array.from(tokens[tokens.length-1]).slice(0, -1)
+            ]);
+        }
+    }
 
     return (
     <div><div className='grid-container left-align'>
@@ -77,9 +123,9 @@ const TunicToEnglish = () => {
         </div>
     </div>
     <RuneKeyboard 
-        onSpaceClick={e => {}}
-        onBackspaceClick={e => {}}
-        onEnterClick={e => {}} />
+        handleSpace={handleSpace}
+        handleBackspace={handleBackspace}
+        handleEnter={handleEnter} />
     </div>);
 }
 
