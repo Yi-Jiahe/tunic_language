@@ -18,6 +18,7 @@ with open("./mappings/cmudict.IPA") as f:
             characters[symbol]["IPA"] = IPA
 
 runes = {}
+rune_to_ipa = {}
 
 with open("./mappings/IPA.runes") as f:
     prog = re.compile("([A-Z]+).*\((.*)\)")
@@ -33,8 +34,14 @@ with open("./mappings/IPA.runes") as f:
                 "type": character_type,
                 "segments": segments
             }
+            rune_to_ipa[segments] = {
+                "type": character_type,
+                "symbol": symbol
+            }
         elif line.startswith("# Consonants"):
             character_type = "consonant"
+
+
 
 
 if __name__ == "__main__":

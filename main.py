@@ -2,18 +2,20 @@ import nltk
 
 from mappings.mappings import characters, runes
 
-
+# The arpabet is a collection of a list phonemes for registered words.
 arpabet = nltk.corpus.cmudict.dict()
 
 
-def to_phoneme(strInput):
+def to_phoneme(strInput: string) -> [string | [string]]:
     """
-    Converts a space separated sentence of words to a list of list of phonemes
+    Converts a space separated sentence of words to a list of list of phonemes.
+    Punctuation is appended directly to the return.
+    Tokens without a arpabet representation are replaced by dashes.
 
     :param strInput:
     Sentence to translate to phonemes
     :return:
-    A list of lists of phonemes for each word in the sentence
+    A list of lists of phonemes or puncuation for each token in the sentence
     """
     ret = []
 
@@ -31,9 +33,9 @@ def to_phoneme(strInput):
     return ret
 
 
-def to_runes(phonemes):
+def to_runes(phonemes: [string]) -> [[frozenset(int), string]]:
     """
-    Converts a list of phonemes (a word) into a list of Tunic runes with their associated readings
+    Converts a list of phonemes (a word) into a list of Tunic runes with their associated readings.
 
     :param phonemes:
     A list of phonemes from the CMUDict
@@ -83,7 +85,7 @@ def to_runes(phonemes):
     return ret
 
 
-def get_segments(phoneme):
+def get_segments(phoneme: string) -> frozenset(int):
     """
     Returns a set of segments used to represent a phoneme
 
@@ -98,11 +100,28 @@ def get_segments(phoneme):
     return runes[IPA]["segments"]
 
 
-def is_vowel(phoneme):
+def is_vowel(phoneme: string) -> bool:
     phoneme = ''.join(i for i in phoneme if not i.isdigit())
     IPA = characters[phoneme]["IPA"]
     return runes[IPA]["type"] == "vowel"
 
+
+def parse_rune(rune: frozenset(int)) -> string:
+    """
+    Provides a reading for the rune.
+    It is possible that the rune is invalid and cannot be translated into a reading.
+
+    :param rune: 
+    Set of segments making up the rune
+    :return:
+    A reading for the rune comprised of 1-2 phonemes (If any)
+    """
+    raise NotImplementedError()
+    # TODO: Separate rune into vowels (segments 1-5) and consonants (segments 6-11)
+    # TODO: Retrieve the phoneme for the vowel and consonant parts
+    # If either cannot be retrieved, the rune is invalid
+    return None
+    # TODO: Return the reading based on the phonemes, with the order being based on the presence of segment 12.
 
 if __name__ == '__main__':
     while True:

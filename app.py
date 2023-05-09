@@ -13,9 +13,9 @@ client.setup_logging()
 from main import to_phoneme, to_runes
 
 
-@app.route('/')
-def hello_world():
-    return 'Hello, Docker!'
+@app.route('/ping')
+def ping():
+    return 'pong'
 
 
 @app.route('/to-runes', methods=['POST'])
@@ -35,6 +35,37 @@ def translate_to_runes():
         }
     except Exception as e:
         logging.error(e)
+
+
+
+@app.route('/parse-runes', methods=['POST'])
+def parse_runes():
+    return {
+        'statusCode': 501,
+    }
+
+    # TODO: Implement parse-runes method
+    try:
+        req_data = json.loads(request.data)
+        words = req_data["words"]
+        logging.info(words)
+        runes = []
+        for word in words:
+            # TODO: Provide readings for each rune and return it with a similar structure to the to-runes method
+            pass
+
+        # TODO: Also provide a string for reading
+
+        return {
+            'statusCode': 200,
+            'body': {
+                'runes': json.dumps(runes, default=lambda x: list(x) if isinstance(x, set) else x),
+                'phonemes': ''
+            }
+        }
+    except Exception as e:
+        logging.error(e)
+
 
 
 if __name__ == "__main__":
