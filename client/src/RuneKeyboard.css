@@ -12,7 +12,7 @@
 .rune-input {
     position: relative;
     width: 180px;
-    aspect-ratio: 0.8;
+    height: 250px;
 }
 
 .rune-input > * {
@@ -40,13 +40,21 @@
 
 #rune-keyboard .space-bar {
     width: 100%;
+    height: 30px;
+    margin-top: 35px;
 }
 
 #rune-keyboard .side-bar {
     display: flex;
     flex-direction: column;
+    width: 50px;
+    margin-left: 35px;
 }
 
-#rune-keyboard .side-bar .side-button {
+#rune-keyboard button {
+    height: 50px;
+}
+
+#rune-keyboard .side-bar .enter-button {
     flex-grow: 1;
 }

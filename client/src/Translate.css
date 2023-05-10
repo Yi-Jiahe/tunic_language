@@ -30,7 +30,6 @@
     }
 }
 
-
 .grid-item {
     display: flex;
     flex-direction: column;
@@ -63,4 +62,10 @@ textarea {
     border: none;
     outline: none;
     resize: none;
+}
+
+#swap-languages-button {
+    aspect-ratio: 1;
+    background-color: none;
+    border: none;
 }

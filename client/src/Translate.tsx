@@ -140,7 +140,7 @@ export default function Tranalate(props: TranslateProps): JSX.Element {
         <>
             <div style={{ display: "flex" }}>
                 <div className="language-title">{englishToTunic ? "English": "Tunic"}</div>
-                <button onClick={() => toggleEnglishToTunic((value) => !value)}>↹</button>
+                <button id="swap-languages-button" onClick={() => toggleEnglishToTunic((value) => !value)}>↹</button>
                 <div className="language-title">{englishToTunic ? "Tunic": "English"}</div>
             </div>
             {englishToTunic ? 
