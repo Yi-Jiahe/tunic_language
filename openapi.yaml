@@ -3,11 +3,13 @@ info:
   title: Tunic Language
   description: |
     This API allows for conversion of standard Enligsh words avaliable in the cmudict into Tunic runes represented by a set of segments and Runes into phonemes.
-  version: 0.1.0
+  version: 0.2.0
 
 paths:
   /to-runes:
     post:
+      tags:
+        - Translate
       summary: Translate to runes
       description: Translate English text into Tunic runes. Also returns the reading for the runes.
       requestBody:
@@ -45,6 +47,39 @@ paths:
                               ],
                               '!'
                             ]
+  /parse-runes:
+    post:
+      tags:
+        - Translate
+      summary: Get readings for runes
+      description: Get readings for runes if avaliable
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Segments'
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  runes:
+                    type: array
+                    items:
+                      anyOf:
+                        - type: string
+                        - type: array
+                          items:
+                            $ref: '#/components/schemas/Rune'
+                  reading:
+                    type: string
+                    example: 'HHAE1'
+
 
     
 components:
