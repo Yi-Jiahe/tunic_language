@@ -57,9 +57,27 @@ paths:
         content:
           application/json:
             schema:
-              type: array
-              items:
-                $ref: '#/components/schemas/Segments'
+              type: object
+              properties:
+                words:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Segments'
+              example: 
+                {'words': 
+                  [
+                    [
+                      [[2, 8, 6, 10, 3], []],
+                      [[2, 3, 9, 11, 5, 4], []],
+                      [[6, 8, 3, 4, 5, 2, 1, 10], []]
+                    ],
+                    [
+                      [[2, 8, 6, 10, 3], []],
+                      [[2, 9, 11, 5, 4], []],
+                      [[6, 8, 3, 4, 5, 2, 1, 10], []]
+                    ],                
+                  ]
+                }
       responses:
         "200":
           description: Success
@@ -78,10 +96,23 @@ paths:
                             $ref: '#/components/schemas/Rune'
                   reading:
                     type: string
-                    example: 'HHAE1'
-
-
-    
+                example: 
+                  {
+                    'reading': 'TAHMEETOH TAH-TOH',
+                    'runes': [
+                      [
+                        [[2, 8, 6, 10, 3], ['T', 'AH']], 
+                        [[2, 3, 9, 11, 5, 4], ['M', 'EE']], 
+                        [[6, 8, 3, 4, 5, 2, 1, 10], ['T', 'OH']]
+                      ], 
+                      [
+                        [[2, 8, 6, 3, 10], ['T', 'AH']], 
+                        [[2, 9, 11, 5, 4], null], 
+                        [[2, 8, 6, 1, 3, 10, 5, 4], ['T', 'OH']]
+                      ]
+                    ]
+                  }
+              
 components:
   schemas:
     Segments:
