@@ -125,7 +125,7 @@ def parse_rune(segments: frozenset[int]) -> str:
     except KeyError:
         return None
     
-    return vowel, consonant if 12 in segments else consonant, vowel
+    return (vowel, consonant) if 12 in segments else (consonant, vowel)
 
 
 if __name__ == '__main__':
