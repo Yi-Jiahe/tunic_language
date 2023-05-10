@@ -63,6 +63,11 @@ const TunicToEnglish = () => {
             return;
         }
 
+        if (rune.size === 0) {
+            setTokens([...tokens, []]);
+            return;
+        }
+
         const finishedTokens: ([number[], string[]][])[] = [
             ...tokens.slice(0, -1), 
             [
@@ -76,6 +81,10 @@ const TunicToEnglish = () => {
     const handleEnter = (rune: Set<number>) => {
         if (tokens.length === 0) {
             setTokens([[[Array.from(rune), Array(rune.size).fill("")]]]);
+            return;
+        }
+
+        if (rune.size === 0) {
             return;
         }
 
