@@ -9,7 +9,7 @@
 }
 
 .tunic .text-area {
-    background: rgb(240, 240, 240);
+    background-color: rgb(240, 240, 240);
     border-radius: 5px;
 }
 
@@ -67,6 +67,6 @@ textarea {
 #swap-languages-button {
     width: 50px;
     height: 50px;
-    background-color: none;
+    background: none;
     border: none;
 }
