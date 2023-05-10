@@ -6,7 +6,7 @@ const endpoint = "https://tunic-language-zic4jhgpva-as.a.run.app";
 
 function App() {
   // Send request on load to warm endpoint
-  fetch(`${endpoint}/to-runes`, {
+  fetch(`${endpoint}/ping`, {
     method: 'POST',
     body: JSON.stringify({
         'input': ''

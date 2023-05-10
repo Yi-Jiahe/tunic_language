@@ -54,8 +54,29 @@ const EnglishToTunic = (props: EnglishToTunicProps) => {
     </div>);
 }
 
-const TunicToEnglish = () => {
+interface TunicToEnglishProps {
+    endpoint: string,
+}
+
+const TunicToEnglish = (props: TunicToEnglishProps) => {
     const [tokens, setTokens] = useState<([number[], string[]][])[]>([]);
+    const [reading, setReading] = useState<string>();
+
+    const getReadings = (newTokens: ([number[], string[]][])[]) => {
+        fetch(`${props.endpoint}/parse-runes`, {
+            method: 'POST',
+            body: JSON.stringify({
+                'words': newTokens
+            })
+        }).then((response) => {
+            return response.json();
+        }).then((data) => {
+            console.log("Response body", data)
+
+            setTokens(JSON.parse(data['body']['runes']));
+            setReading(data['body']['reading']);
+        });
+    }
 
     const handleSpace = (rune: Set<number>) => {
         if (tokens.length === 0) {
@@ -75,12 +96,13 @@ const TunicToEnglish = () => {
                 [Array.from(rune), Array(rune.size).fill("")]
             ]
         ]
-        setTokens([...finishedTokens, []]);
+
+        getReadings([...finishedTokens, []]);
     }
 
     const handleEnter = (rune: Set<number>) => {
         if (tokens.length === 0) {
-            setTokens([[[Array.from(rune), Array(rune.size).fill("")]]]);
+            getReadings([[[Array.from(rune), Array(rune.size).fill("")]]]);
             return;
         }
 
@@ -88,7 +110,7 @@ const TunicToEnglish = () => {
             return;
         }
 
-        setTokens([
+        getReadings([
             ...tokens.slice(0, -1), 
             [
                 ...Array.from(tokens[tokens.length-1]), 
@@ -103,13 +125,14 @@ const TunicToEnglish = () => {
         }
 
         if (tokens[tokens.length-1].length === 0) {
-            setTokens(tokens.slice(0, -1));
+            getReadings(tokens.slice(0, -1));
         } else {
-            setTokens([
+            getReadings([
                 ...tokens.slice(0, -1), 
                 Array.from(tokens[tokens.length-1]).slice(0, -1)
-            ]);
+            ]);        
         }
+ 
     }
 
     return (
@@ -124,11 +147,9 @@ const TunicToEnglish = () => {
             </div>
         </div>
         <div className='grid-item english'>
-            <textarea
-                className="text-area"
-                placeholder="Translation"
-                disabled
-            />
+            <div
+                className="text-area"          
+            >{reading}</div>
         </div>
     </div>
     <RuneKeyboard 
@@ -142,7 +163,7 @@ interface TranslateProps {
     endpoint: string
 }
 
-export default function Tranalate(props: TranslateProps): JSX.Element {
+export default function Translate(props: TranslateProps): JSX.Element {
     const [englishToTunic, toggleEnglishToTunic] = useState(true);
 
     return (
@@ -154,7 +175,7 @@ export default function Tranalate(props: TranslateProps): JSX.Element {
             </div>
             {englishToTunic ? 
                 <EnglishToTunic endpoint={props.endpoint} /> :
-                <TunicToEnglish />
+                <TunicToEnglish endpoint={props.endpoint} />
             }
             <hr />
         </>

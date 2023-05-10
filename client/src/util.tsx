@@ -10,7 +10,10 @@ const RenderTokens = (tokens: Array<Array<[Array<number>, Array<string>]> | stri
                         token.map((rune: [Array<number>, Array<string>], j) => {
                             return (
                                 <Rune key={`${i}, ${j}`}
-                                    title={rune[1].join("")}
+                                    title={rune[1] === null ?
+                                        "-" : 
+                                        rune[1].join("")
+                                    }
                                     segments={new Set(rune[0])} />);
                         })
                     }
