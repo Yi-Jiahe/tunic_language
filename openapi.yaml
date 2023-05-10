@@ -1,0 +1,70 @@
+openapi: 3.1.0
+info:
+  title: Tunic Language
+  description: |
+    This API allows for conversion of standard Enligsh words avaliable in the cmudict into Tunic runes represented by a set of segments and Runes into phonemes.
+  version: 0.1.0
+
+paths:
+  /to-runes:
+    post:
+      summary: Translate to runes
+      description: Translate English text into Tunic runes. Also returns the reading for the runes.
+      requestBody:
+        content:
+          application/json:
+            schema: 
+              type: string
+              example: "Hello, World!"
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  runes:
+                    type: array
+                    items:
+                      anyOf:
+                        - type: string
+                        - type: array
+                          items:
+                            $ref: '#/components/schemas/Rune'
+                    example: [
+                              [
+                                [[2, 3, 7, 10, 11], ['HH', 'AH0']],
+                                [[1, 2, 3, 4, 5, 7, 10], ['L', 'OW1']],
+                              ],
+                              ',',
+                              [
+                                [[2, 3, 5, 6, 8], ['W', 'ER1']],
+                                [[10, 7], ['L']],
+                                [[9, 11, 7], ['D']]
+                              ],
+                              '!'
+                            ]
+
+    
+components:
+  schemas:
+    Segments:
+      type: array
+      items:
+        type: integer
+        minimum: 1
+        maximum: 12
+    Readings:
+      type: array
+      items: 
+        type: string
+    Rune:
+      type: array
+      items:
+        anyOf:
+          - $ref: '#/components/schemas/Segments'
+          - $ref: '#/components/schemas/Readings'
+      minItems: 2
+      maxItems: 2
+      example: [[1, 2, 3, 7, 10, 11], ['HH', 'AE1']]
