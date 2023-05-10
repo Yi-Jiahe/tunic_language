@@ -109,7 +109,6 @@ export default function RuneKeyboard(props: RuneInputProps) {
     }
 
     const onTouchMove = (e: React.TouchEvent) => {      
-        e.stopPropagation();  
         checkPoint(e.touches[0]);
     }
 
