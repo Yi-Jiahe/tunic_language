@@ -6,7 +6,7 @@ from mappings.mappings import characters, runes, rune_to_ipa
 arpabet = nltk.corpus.cmudict.dict()
 
 
-def to_phoneme(strInput: str) -> [str | [str]]:
+def to_phoneme(strInput: str):
     """
     Converts a space separated sentence of words to a list of list of phonemes.
     Punctuation is appended directly to the return.
@@ -15,7 +15,7 @@ def to_phoneme(strInput: str) -> [str | [str]]:
     :param strInput:
     Sentence to translate to phonemes
     :return:
-    A list of lists of phonemes or puncuation for each token in the sentence
+    [str | [str]] A list of lists of phonemes or puncuation for each token in the sentence
     """
     ret = []
 
