@@ -1,6 +1,6 @@
 import nltk
 
-from mappings.mappings import characters, runes
+from mappings.mappings import characters, runes, rune_to_ipa
 
 # The arpabet is a collection of a list phonemes for registered words.
 arpabet = nltk.corpus.cmudict.dict()
@@ -117,11 +117,18 @@ def parse_rune(rune: frozenset(int)) -> string:
     A reading for the rune comprised of 1-2 phonemes (If any)
     """
     raise NotImplementedError()
-    # TODO: Separate rune into vowels (segments 1-5) and consonants (segments 6-11)
-    # TODO: Retrieve the phoneme for the vowel and consonant parts
-    # If either cannot be retrieved, the rune is invalid
-    return None
-    # TODO: Return the reading based on the phonemes, with the order being based on the presence of segment 12.
+
+    rune_vowel = frozenset([x for x in rune if x <= 5])
+    rune_consonant = frozenset([x for x in rune if 6 <= x < 12])
+
+    try:
+        vowel = rune_to_ipa[rune_vowel]
+        consonant = rune_to_ipa[rune_consonant]
+    except KeyError:
+        return None
+    
+    return vowel, consonant if 12 in rune else consonant, vowel
+
 
 if __name__ == '__main__':
     while True:

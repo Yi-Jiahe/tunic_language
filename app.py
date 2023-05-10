@@ -10,7 +10,7 @@ import google.cloud.logging
 client = google.cloud.logging.Client()
 client.setup_logging()
 
-from main import to_phoneme, to_runes
+from main import to_phoneme, to_runes, parse_rune
 
 
 @app.route('/ping')
@@ -40,27 +40,28 @@ def translate_to_runes():
 
 @app.route('/parse-runes', methods=['POST'])
 def parse_runes():
-    return {
-        'statusCode': 501,
-    }
-
-    # TODO: Implement parse-runes method
     try:
         req_data = json.loads(request.data)
         words = req_data["words"]
         logging.info(words)
         runes = []
+        reading = ""
         for word in words:
-            # TODO: Provide readings for each rune and return it with a similar structure to the to-runes method
-            pass
-
-        # TODO: Also provide a string for reading
+            parsed_word = []
+            for rune in word:
+                readings = parse_rune(rune)
+                parsed_word.append([rune, readings])
+                if readings is None:
+                    reading += ' -' 
+                    continue
+                reading += ' ' + ''.join(readings)
+            runes.append(parsed_word)
 
         return {
             'statusCode': 200,
             'body': {
-                'runes': json.dumps(runes, default=lambda x: list(x) if isinstance(x, set) else x),
-                'phonemes': ''
+                'runes': json.dumps(runes),
+                'reading': reading
             }
         }
     except Exception as e:

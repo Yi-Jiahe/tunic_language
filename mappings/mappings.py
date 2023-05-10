@@ -42,8 +42,6 @@ with open("./mappings/IPA.runes") as f:
             character_type = "consonant"
 
 
-
-
 if __name__ == "__main__":
     print("CMUDict Phones")
     for character in characters.items():
