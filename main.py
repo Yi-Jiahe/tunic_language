@@ -106,7 +106,7 @@ def is_vowel(phoneme: str) -> bool:
     return runes[IPA]["type"] == "vowel"
 
 
-def parse_rune(segments: frozenset[int]) -> str:
+def parse_rune(segments: frozenset[int]) -> None | str | list[str]:
     """
     Provides a reading for the rune.
     It is possible that the rune is invalid and cannot be translated into a reading.
@@ -119,12 +119,24 @@ def parse_rune(segments: frozenset[int]) -> str:
     rune_vowel = frozenset([x for x in segments if x <= 5])
     rune_consonant = frozenset([x for x in segments if 6 <= x < 12])
 
+    vowel, consonant = None, None
     try:
         vowel = rune_to_ipa[rune_vowel]['symbol']
+    except KeyError:
+        pass
+
+    try:
         consonant = rune_to_ipa[rune_consonant]['symbol']
     except KeyError:
-        return None
+        pass
     
+    if vowel is None and consonant is None:
+        return None
+    if vowel is None:
+        return consonant
+    if consonant is None:
+        return vowel
+
     return (vowel, consonant) if 12 in segments else (consonant, vowel)
 
 
