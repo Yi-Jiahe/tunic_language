@@ -33,11 +33,8 @@ nltk.download('punkt')
 
 ## Client
 
-Google translate styled translator to convert English text to tunic script.
+Google translate styled translator to convert English text to tunic script with rune drawing keyboard hosted at https://tunic-lang.netlify.app ([source](https://github.com/Yi-Jiahe/tunic_translator_client)).
 
-## To-do
+## Future plans
 
-1) Implement rune to phoneme on BE
-2) Look into OCR to identify and break down runes
-3) Add rune input to FE (keyboard? drag to draw?)
-4) Add support for contractions, e.g. don't, they're, let's, you'll, etc.
+1) Look into OCR to identify and break down runes from images
