@@ -133,9 +133,9 @@ def parse_rune(segments: frozenset[int]) -> None | str | list[str]:
     if vowel is None and consonant is None:
         return None
     if vowel is None:
-        return consonant
+        return (consonant)
     if consonant is None:
-        return vowel
+        return (vowel)
 
     return (vowel, consonant) if 12 in segments else (consonant, vowel)
 
