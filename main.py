@@ -6,7 +6,7 @@ from mappings.mappings import characters, runes, rune_to_ipa
 arpabet = nltk.corpus.cmudict.dict()
 
 
-def to_phoneme(strInput: str):
+def to_phoneme(strInput: str) -> list[str | list[str]] :
     """
     Converts a space separated sentence of words to a list of list of phonemes.
     Punctuation is appended directly to the return.
@@ -15,7 +15,7 @@ def to_phoneme(strInput: str):
     :param strInput:
     Sentence to translate to phonemes
     :return:
-    [str | [str]] A list of lists of phonemes or puncuation for each token in the sentence
+    A list of lists of phonemes or puncuation for each token in the sentence
     """
     ret = []
 
@@ -33,7 +33,7 @@ def to_phoneme(strInput: str):
     return ret
 
 
-def to_runes(phonemes: [str]) -> [[frozenset(int), str]]:
+def to_runes(phonemes: list[str]) -> list[list[frozenset[int], str]]:
     """
     Converts a list of phonemes (a word) into a list of Tunic runes with their associated readings.
 
@@ -85,7 +85,7 @@ def to_runes(phonemes: [str]) -> [[frozenset(int), str]]:
     return ret
 
 
-def get_segments(phoneme: str) -> frozenset(int):
+def get_segments(phoneme: str) -> frozenset[int]:
     """
     Returns a set of segments used to represent a phoneme
 
@@ -106,7 +106,7 @@ def is_vowel(phoneme: str) -> bool:
     return runes[IPA]["type"] == "vowel"
 
 
-def parse_rune(rune: frozenset(int)) -> str:
+def parse_rune(rune: frozenset[int]) -> str:
     """
     Provides a reading for the rune.
     It is possible that the rune is invalid and cannot be translated into a reading.
