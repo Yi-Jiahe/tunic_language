@@ -45,23 +45,25 @@ def parse_runes():
         words = req_data["words"]
         logging.info(words)
         runes = []
-        reading = ""
+        word_readings = []
         for word in words:
             parsed_word = []
+            syllables = [] 
             for rune in word:
-                readings = parse_rune(rune[0])
-                parsed_word.append([rune, readings])
+                segments = rune[0]
+                readings = parse_rune(segments)
+                parsed_word.append([segments, readings])
                 if readings is None:
-                    reading += ' -' 
+                    syllables.append('-')
                     continue
-                reading += ' ' + ''.join(readings)
+                syllables.append(''.join(readings))
             runes.append(parsed_word)
-
+            word_readings.append(''.join(syllables))
         return {
             'statusCode': 200,
             'body': {
                 'runes': json.dumps(runes),
-                'reading': reading
+                'reading': ' '.join(word_readings)
             }
         }
     except Exception as e:
