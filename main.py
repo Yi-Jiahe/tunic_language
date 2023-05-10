@@ -120,8 +120,8 @@ def parse_rune(segments: frozenset[int]) -> str:
     rune_consonant = frozenset([x for x in segments if 6 <= x < 12])
 
     try:
-        vowel = rune_to_ipa[rune_vowel]
-        consonant = rune_to_ipa[rune_consonant]
+        vowel = rune_to_ipa[rune_vowel]['symbol']
+        consonant = rune_to_ipa[rune_consonant]['symbol']
     except KeyError:
         return None
     
