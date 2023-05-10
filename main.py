@@ -1,19 +1,21 @@
 import nltk
 
-from mappings.mappings import characters, runes
+from mappings.mappings import characters, runes, rune_to_ipa
 
-
+# The arpabet is a collection of a list phonemes for registered words.
 arpabet = nltk.corpus.cmudict.dict()
 
 
-def to_phoneme(strInput):
+def to_phoneme(strInput: str) -> list[str | list[str]] :
     """
-    Converts a space separated sentence of words to a list of list of phonemes
+    Converts a space separated sentence of words to a list of list of phonemes.
+    Punctuation is appended directly to the return.
+    Tokens without a arpabet representation are replaced by dashes.
 
     :param strInput:
     Sentence to translate to phonemes
     :return:
-    A list of lists of phonemes for each word in the sentence
+    A list of lists of phonemes or puncuation for each token in the sentence
     """
     ret = []
 
@@ -31,9 +33,9 @@ def to_phoneme(strInput):
     return ret
 
 
-def to_runes(phonemes):
+def to_runes(phonemes: list[str]) -> list[list[frozenset[int], str]]:
     """
-    Converts a list of phonemes (a word) into a list of Tunic runes with their associated readings
+    Converts a list of phonemes (a word) into a list of Tunic runes with their associated readings.
 
     :param phonemes:
     A list of phonemes from the CMUDict
@@ -83,7 +85,7 @@ def to_runes(phonemes):
     return ret
 
 
-def get_segments(phoneme):
+def get_segments(phoneme: str) -> frozenset[int]:
     """
     Returns a set of segments used to represent a phoneme
 
@@ -98,10 +100,32 @@ def get_segments(phoneme):
     return runes[IPA]["segments"]
 
 
-def is_vowel(phoneme):
+def is_vowel(phoneme: str) -> bool:
     phoneme = ''.join(i for i in phoneme if not i.isdigit())
     IPA = characters[phoneme]["IPA"]
     return runes[IPA]["type"] == "vowel"
+
+
+def parse_rune(segments: frozenset[int]) -> str:
+    """
+    Provides a reading for the rune.
+    It is possible that the rune is invalid and cannot be translated into a reading.
+
+    :param rune: 
+    Set of segments making up the rune
+    :return:
+    A reading for the rune comprised of 1-2 phonemes (If any)
+    """
+    rune_vowel = frozenset([x for x in segments if x <= 5])
+    rune_consonant = frozenset([x for x in segments if 6 <= x < 12])
+
+    try:
+        vowel = rune_to_ipa[rune_vowel]['symbol']
+        consonant = rune_to_ipa[rune_consonant]['symbol']
+    except KeyError:
+        return None
+    
+    return (vowel, consonant) if 12 in segments else (consonant, vowel)
 
 
 if __name__ == '__main__':
