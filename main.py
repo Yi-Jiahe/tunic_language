@@ -106,7 +106,7 @@ def is_vowel(phoneme: str) -> bool:
     return runes[IPA]["type"] == "vowel"
 
 
-def parse_rune(rune: frozenset[int]) -> str:
+def parse_rune(segments: frozenset[int]) -> str:
     """
     Provides a reading for the rune.
     It is possible that the rune is invalid and cannot be translated into a reading.
@@ -116,10 +116,8 @@ def parse_rune(rune: frozenset[int]) -> str:
     :return:
     A reading for the rune comprised of 1-2 phonemes (If any)
     """
-    raise NotImplementedError()
-
-    rune_vowel = frozenset([x for x in rune if x <= 5])
-    rune_consonant = frozenset([x for x in rune if 6 <= x < 12])
+    rune_vowel = frozenset([x for x in segments if x <= 5])
+    rune_consonant = frozenset([x for x in segments if 6 <= x < 12])
 
     try:
         vowel = rune_to_ipa[rune_vowel]

@@ -49,7 +49,7 @@ def parse_runes():
         for word in words:
             parsed_word = []
             for rune in word:
-                readings = parse_rune(rune)
+                readings = parse_rune(rune[0])
                 parsed_word.append([rune, readings])
                 if readings is None:
                     reading += ' -' 
