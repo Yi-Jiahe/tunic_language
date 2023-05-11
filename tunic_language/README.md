@@ -12,7 +12,7 @@ The characters which are comprised of 12 segments, 5 of which are used to identi
 
 Below is a single character and the numbering used to refer to the segments. 
 
-![Segments](assets/segments.png)
+![Segments](./assets/segments.png)
 
 ## Dependencies
 
