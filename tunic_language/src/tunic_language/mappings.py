@@ -21,6 +21,7 @@ with resources.open_text("tunic_language", "cmudict.IPA") as f:
             characters[symbol]["IPA"] = IPA
 
 runes = {}
+rune_to_ipa = {}
 
 with resources.open_text("tunic_language", "IPA.runes") as f:
     prog = re.compile("([A-Z]+).*\((.*)\)")
@@ -35,6 +36,10 @@ with resources.open_text("tunic_language", "IPA.runes") as f:
             runes[symbol] = {
                 "type": character_type,
                 "segments": segments
+            }
+            rune_to_ipa[segments] = {
+                "type": character_type,
+                "symbol": symbol
             }
         elif line.startswith("# Consonants"):
             character_type = "consonant"
