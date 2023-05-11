@@ -1,6 +1,7 @@
 import nltk
 
-from mappings.mappings import characters, runes, rune_to_ipa
+from .mappings import characters, runes, rune_to_ipa
+
 
 # The arpabet is a collection of a list phonemes for registered words.
 arpabet = nltk.corpus.cmudict.dict()

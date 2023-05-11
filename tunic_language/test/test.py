@@ -1,6 +1,6 @@
 import re
 
-import mappings.mappings
+import tunic_language.src.tunic_language.mappings
 
 
 def character_coverage_test():

@@ -1,7 +1,7 @@
 import json
 import logging
 
-from flask import Flask, make_response, request
+from flask import Flask, request
 from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
@@ -10,7 +10,7 @@ import google.cloud.logging
 client = google.cloud.logging.Client()
 client.setup_logging()
 
-from main import to_phoneme, to_runes, parse_rune
+from tunic_language import to_phoneme, to_runes, parse_rune
 
 
 @app.route('/ping')
