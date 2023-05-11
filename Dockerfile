@@ -15,4 +15,6 @@ RUN python -m nltk.downloader -d ./nltk_data cmudict punkt
 
 COPY . .
 
+RUN pip install -e ./tunic_language
+
 CMD exec gunicorn --bind :$PORT --workers 1 --threads 1 --timeout 0 app:app

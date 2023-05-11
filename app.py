@@ -37,7 +37,6 @@ def translate_to_runes():
         logging.error(e)
 
 
-
 @app.route('/parse-runes', methods=['POST'])
 def parse_runes():
     try:
@@ -68,7 +67,6 @@ def parse_runes():
         }
     except Exception as e:
         logging.error(e)
-
 
 
 if __name__ == "__main__":
